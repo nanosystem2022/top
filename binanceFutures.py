@@ -68,10 +68,10 @@ class Bot:
         }
         if float(position) > 0:
             print("Closing Long Position")
-            exchange.create_order(symbol, 'Market', 'Sell', float(position), price=None, params=params)
+            exchange.create_order(symbol, 'Market', 'Exit-Long', float(position), price=None, params=params)
         else:
             print("Closing Short Position")
-            exchange.create_order(symbol, 'Market', 'Buy', -float(position), price=None, params=params)
+            exchange.create_order(symbol, 'Market', 'Exit-Sell', -float(position), price=None, params=params)
 
     def set_risk(self, symbol, data, stop_loss, take_profit):
         position = exchange.fetch_positions(currency_check(symbol))
