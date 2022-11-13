@@ -98,10 +98,10 @@ def webhook():
                         take_profit_percent = float(data['take_profit_percent'])/100
                         stop_loss_percent = float(data['stop_loss_percent'])/100
                         current_price = session.latest_information_for_symbol(symbol=data['symbol'])['result'][0]['last_price']
-                        if data['side'].capitalize() == 'Buy':
+                        if data['side'] == 'Buy':
                             take_profit_price = round(float(current_price) + (float(current_price) * take_profit_percent), 2)
                             stop_loss_price = round(float(current_price) - (float(current_price) * stop_loss_percent), 2)
-                        elif data['side'].capitalize() == 'Sell':
+                        elif data['side'] == 'Sell':
                             take_profit_price = round(float(current_price) - (float(current_price) * take_profit_percent), 2)
                             stop_loss_price = round(float(current_price) + (float(current_price) * stop_loss_percent), 2)
 
@@ -109,39 +109,39 @@ def webhook():
                         print("Take Profit Price: " + str(take_profit_price))
                         print("Stop Loss Price: " + str(stop_loss_price))
 
-                        session.place_active_order(symbol=data['symbol'], order_type=data['type'], side=data['side'].capitalize(),
+                        session.place_active_order(symbol=data['symbol'], order_type=data['type'], side=data['side'],
                                                    qty=data['qty'], time_in_force="GoodTillCancel", reduce_only=False,
                                                    close_on_trigger=False, price=price, take_profit=take_profit_price, stop_loss=stop_loss_price)
 
                     elif data['order_mode'] == 'Profit':
                         take_profit_percent = float(data['take_profit_percent'])/100
                         current_price = session.latest_information_for_symbol(symbol=data['symbol'])['result'][0]['last_price']
-                        if data['side'].capitalize() == 'Buy':
+                        if data['side'] == 'Buy':
                             take_profit_price = round(float(current_price) + (float(current_price) * take_profit_percent), 2)
-                        elif data['side'].capitalize() == 'Sell':
+                        elif data['side'] == 'Sell':
                             take_profit_price = round(float(current_price) - (float(current_price) * take_profit_percent), 2)
 
                         print("Take Profit Price: " + str(take_profit_price))
-                        session.place_active_order(symbol=data['symbol'], order_type=data['type'], side=data['side'].capitalize(),
+                        session.place_active_order(symbol=data['symbol'], order_type=data['type'], side=data['side'],
                                                    qty=data['qty'], time_in_force="GoodTillCancel", reduce_only=False,
                                                    close_on_trigger=False, price=price, take_profit=take_profit_price)
                     elif data['order_mode'] == 'Stop':
                         stop_loss_percent = float(data['stop_loss_percent'])/100
                         current_price = session.latest_information_for_symbol(symbol=data['symbol'])['result'][0]['last_price']
-                        if data['side'].capitalize() == 'Buy':
+                        if data['side'] == 'Buy':
                             stop_loss_price = round(float(current_price) - (float(current_price) * stop_loss_percent), 2)
-                        elif data['side'].capitalize() == 'Sell':
+                        elif data['side'] == 'Sell':
                             stop_loss_price = round(float(current_price) + (float(current_price) * stop_loss_percent), 2)
 
                         print("Stop Loss Price: " + str(stop_loss_price))
-                        session.place_active_order(symbol=data['symbol'], order_type=data['type'], side=data['side'].capitalize(),
+                        session.place_active_order(symbol=data['symbol'], order_type=data['type'], side=data['side'],
                                                    qty=data['qty'], time_in_force="GoodTillCancel", reduce_only=False,
                                                    close_on_trigger=False, price=price, stop_loss=stop_loss_price)
 
 
 
                     else:
-                        session.place_active_order(symbol=data['symbol'], order_type=data['type'], side=data['side'].capitalize(),
+                        session.place_active_order(symbol=data['symbol'], order_type=data['type'], side=data['side'],
                                                    qty=data['qty'], time_in_force="GoodTillCancel", reduce_only=False,
                                                    close_on_trigger=False, price=price)
 
@@ -174,3 +174,4 @@ def webhook():
 
 if __name__ == '__main__':
     app.run(debug=False)
+
